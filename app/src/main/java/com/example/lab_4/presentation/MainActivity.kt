@@ -1,3 +1,4 @@
+// File: app/src/main/java/com/example/lab_4/presentation/MainActivity.kt
 package com.example.lab_4.presentation
 
 import android.content.Intent
@@ -46,7 +47,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
-                        .weight(0.8f)
+                        .weight(0.6f)
                         .padding(8.dp),
                     text = chiuit.description,
                 )
@@ -103,8 +103,15 @@ class MainActivity : ComponentActivity() {
                         stringResource(R.string.send_action_icon_content_description)
                     )
                 }
+                // TODO 4: Add a new button that has the purpose to delete a chiuit.
+                Button(
+                    modifier = Modifier
+                        .weight(0.2f)
+                        .padding(8.dp),
+                    onClick = { viewModel.removeChiuit(chiuit) }) {
+                    Text(text = "Delete")
+                }
             }
-            // TODO 4: Add a new button that has the purpose to delete a chiuit.
         }
     }
 
@@ -140,6 +147,8 @@ class MainActivity : ComponentActivity() {
     private fun setChiuitText(resultText: String?) {
         if(resultText !== null) {
             // TODO 1: Instantiate a new chiuit object then delegate the addition to the [viewModel].
+            // The ViewModel API expects a description string, so delegate directly:
+            viewModel.addChiuit(resultText)
         }
     }
 
@@ -149,5 +158,3 @@ class MainActivity : ComponentActivity() {
         HomeScreen(viewModel)
     }
 }
-
-
